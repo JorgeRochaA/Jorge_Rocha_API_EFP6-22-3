@@ -23,7 +23,7 @@ public partial class Ask
 
     public virtual ICollection<Answer> Answers { get; } = new List<Answer>();
 
-    public virtual AskStatus AskStatus { get; set; } = null!;
+    public virtual AskStatus? AskStatus { get; set; } = null!;
 
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } = null!;
 }
