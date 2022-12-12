@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Jorge_Rocha_API_EFP6_22_3.Models;
+using Jorge_Rocha_API_EFP6_22_3.Models.DTO;
 
 namespace Jorge_Rocha_API_EFP6_22_3.Controllers
 {
@@ -18,6 +19,69 @@ namespace Jorge_Rocha_API_EFP6_22_3.Controllers
         public UsersController(AnswersDbContext context)
         {
             _context = context;
+        }
+
+        // GET: api/Users/GetUserInfo?userId=3
+        [HttpGet("GetUserInfo")]
+        public ActionResult<IEnumerable<UserDTO>> GetUserInfo(int userId)
+        {
+            //las consultas linq se parece a los normales.
+            var query = (from user in _context.Users
+                         where user.UserId == userId
+                         select new
+                         {
+                             userId = user.UserId,
+                             userName = user.UserName,
+                             firstName = user.FirstName,
+                             lastName = user.LastName,
+                             phoneNumber = user.PhoneNumber,
+                             userPassword = user.UserPassword,
+                             strikeCount = user.StrikeCount,
+                             backUpEmail = user.BackUpEmail,
+                             jobDescription = user.JobDescription,
+                             userStatusId = user.UserStatusId,
+                             countryId = user.CountryId,
+                             userRoleId = user.UserRoleId
+
+                         }).ToList();
+
+            List<UserDTO> list = new List<UserDTO>();
+
+
+
+            foreach (var item in query)
+            {
+                UserDTO newItem = new UserDTO();
+
+                newItem.UserId= item.userId;
+                newItem.UserName= item.userName;
+                newItem.FirstName= item.firstName;
+                newItem.LastName= item.lastName;
+                newItem.PhoneNumber= item.phoneNumber;
+                newItem.UserPassword= item.userPassword;
+                newItem.StrikeCount= item.strikeCount;
+                newItem.BackUpEmail = item.backUpEmail;
+                newItem.JobDescription= item.jobDescription;
+                newItem.UserStatusId= item.userStatusId;
+                newItem.CountryId= item.countryId;
+                newItem.UserRoleId= item.userRoleId;
+
+                list.Add(newItem);
+            }
+
+
+
+
+
+
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return list;
         }
 
         // GET: api/Users
