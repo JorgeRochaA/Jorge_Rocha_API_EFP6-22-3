@@ -80,10 +80,9 @@ public partial class AnswersDbContext : DbContext
             entity.ToTable("Ask");
 
             entity.Property(e => e.AskId).HasColumnName("AskID");
-            entity.Property(e => e.Ask1)
+            entity.Property(e => e.AskDescription)
                 .HasMaxLength(1024)
-                .IsUnicode(false)
-                .HasColumnName("Ask");
+                .IsUnicode(false);
             entity.Property(e => e.AskDetail).IsUnicode(false);
             entity.Property(e => e.AskStatusId).HasColumnName("AskStatusID");
             entity.Property(e => e.Date).HasColumnType("smalldatetime");

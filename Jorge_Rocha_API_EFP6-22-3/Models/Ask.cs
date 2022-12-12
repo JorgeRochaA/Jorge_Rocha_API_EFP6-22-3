@@ -9,7 +9,7 @@ public partial class Ask
 
     public DateTime Date { get; set; }
 
-    public string Ask1 { get; set; } = null!;
+    public string AskDescription { get; set; } = null!;
 
     public int UserId { get; set; }
 
